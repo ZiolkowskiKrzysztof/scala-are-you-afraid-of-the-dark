@@ -20,8 +20,6 @@ class PhotoScanner {
       for (y <- 0 until h)
         out.setRGB(x, y, img.getRGB(x, y) & 0xffffff)
 
-    // TODO: scanning brightness of the pixels
-
     out
   }
 
@@ -56,6 +54,19 @@ class PhotoScanner {
     result
   }
 
+  def setName(name: String, n: Int, cutOff: Int): String =
+    if (n <= cutOff) name + "_dark_" + n
+    else name + "_bright_" + n
+
+  def write(imgName: String, cutOff: Int): Unit = {
+    val photo1 = ImageIO.read(new File(imgName))
+    val color = scan(photo1)
+    val name = setName(imgName, color, cutOff)
+    val photo2 = copy(photo1)
+
+    ImageIO.write(photo2, "jpg", new File(name + ".jpg"))
+  }
+
   def test() {
 
     val p1 = ImageIO.read(new File("a.jpg"))
@@ -70,7 +81,7 @@ class PhotoScanner {
     val p10 = ImageIO.read(new File("j.jpg"))
 
     // save image to file "test.jpg"
-//    ImageIO.write(photo2, "jpg", new File("test.jpg"))
+    //    ImageIO.write(photo2, "jpg", new File("test.jpg"))
     println("Photo1: ")
     println(scan(p1))
     println("Photo2: ")
@@ -91,7 +102,7 @@ class PhotoScanner {
     println(scan(p9))
     println("Photo10: ")
     println(scan(p10))
-//    ImageIO.write(photo2, "png", new File("test.png"))
+    //    ImageIO.write(photo2, "png", new File("test.png"))
   }
 
 
