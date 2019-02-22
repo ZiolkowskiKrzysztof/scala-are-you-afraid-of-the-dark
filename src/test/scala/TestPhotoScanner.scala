@@ -16,4 +16,9 @@ object TestPhotoScanner extends App {
   println(testSetName)
   println(testSetName2)
 
+  val writeTest = test1.write("a.jpg", 45)
+
+  val improveNameTest = test1.withoutExtension("a.jpg")
+  println(improveNameTest)
+
 }

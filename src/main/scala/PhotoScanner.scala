@@ -58,6 +58,10 @@ class PhotoScanner {
     if (n <= cutOff) name + "_dark_" + n
     else name + "_bright_" + n
 
+  def withoutExtension(name: String):String = {
+      name.substring(0, name.lastIndexOf("."))
+  }
+
   def write(imgName: String, cutOff: Int): Unit = {
     val photo1 = ImageIO.read(new File(imgName))
     val color = scan(photo1)
