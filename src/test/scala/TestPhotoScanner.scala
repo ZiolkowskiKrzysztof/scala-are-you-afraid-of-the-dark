@@ -48,7 +48,7 @@ object TestPhotoScanner extends App {
 //  test1.write(pic12, 35)
 //  test1.write(pic13, 35)
 //  test1.write(pic14, 35)
-////  test1.write(pic15, 35)
+//  test1.write(pic15, 35)
 //  test1.write(pic16, 35)
 //  test1.write(pic17, 35)
 //  test1.write(pic18, 35)

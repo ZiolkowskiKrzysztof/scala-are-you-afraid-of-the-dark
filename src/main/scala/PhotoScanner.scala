@@ -2,27 +2,36 @@ package scala
 
 import java.awt.image.BufferedImage
 import java.io.File
-
 import javax.imageio.ImageIO
 
+/** A class responsible for the operations on the picture. */
 class PhotoScanner {
 
+  /** This method is responsible for creating a copy of the scanned image.
+    *
+    * @param img An image to be copied.
+    * @return A copy of the original image.
+    */
   def copy(img: BufferedImage): BufferedImage = {
-    // obtain width and height of image
-    val w = img.getWidth
-    val h = img.getHeight
+    val width = img.getWidth
+    val height = img.getHeight
 
     // create new image of the same size
-    val out = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB)
+    val out = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB)
 
     // copy pixels
-    for (x <- 0 until w)
-      for (y <- 0 until h)
+    for (x <- 0 until width)
+      for (y <- 0 until height)
         out.setRGB(x, y, img.getRGB(x, y) & 0xffffff)
 
     out
   }
 
+  /** This method gets data from the pixel about intensity of colors (red, green, blue).
+    *
+    * @param rgb An integer value of the product of the RGB values.
+    * @return The average color value in the range 0-256.
+    */
   def getColor(rgb: Int): Int = {
     val color = rgb
     val red = (color & 0xff0000) / 65536
@@ -34,10 +43,20 @@ class PhotoScanner {
     avg
   }
 
+  /** This method converts RGB(0-256) value to the another (0-100) scale.
+    *
+    * @param n A value in RGB scale.
+    * @return A value in 0-100 scale.
+    */
   def convert(n: Int): Int = {
     ((-15) * (n * n) / 11264) + ((515 * n) / 704)
   }
 
+  /** This method scans an image and calculate average RGB value of the picture.
+    *
+    * @param img An image to be scanned.
+    * @return The average color value in the range 0-256 of the whole picture.
+    */
   def scan(img: BufferedImage): Int = {
 
     val width = img.getWidth
@@ -54,18 +73,40 @@ class PhotoScanner {
     result
   }
 
+  /** This method creates a name for the new image depending on brightness of the picture and given cut-off.
+    *
+    * @param name An original name of the image.
+    * @param n A brightness of the photo in 0-100 scale.
+    * @param cutOff A value of given cut-off.
+    * @return
+    */
   def setName(name: String, n: Int, cutOff: Int): String =
     if (n <= cutOff) name + "_dark_" + n
     else name + "_bright_" + n
 
-  def withoutExtension(name: String): String = {
-      name.substring(0, name.lastIndexOf("."))
+  /** This method removes the extension from the name.
+    *
+    * @param fileName A fullname of given file.
+    * @return A name of file without extension.
+    */
+  def withoutExtension(fileName: String): String = {
+      fileName.substring(0, fileName.lastIndexOf("."))
   }
 
-  def getExtension(name: String): String = {
-    name.substring(name.indexOf(".") + 1, name.length)
+  /** This method removes the name and leave only extension of the file.
+    *
+    * @param fileName A fullname of given file.
+    * @return An extension of the file.
+    */
+  def getExtension(fileName: String): String = {
+    fileName.substring(fileName.indexOf(".") + 1, fileName.length)
   }
 
+  /** This method is responsible for saving image with information about brightness of the picture.
+    *
+    * @param imgName An image to be save.
+    * @param cutOff A value of given cut-off.
+    */
   def write(imgName: Picture, cutOff: Int): Unit = {
     val photo1 = ImageIO.read(new File(imgName.path))
     val color = scan(photo1)
@@ -76,41 +117,5 @@ class PhotoScanner {
 
     ImageIO.write(photo2, extension, new File(name + "." + extension))
   }
-
-//  def test() {
-//
-//    val p1 = ImageIO.read(new File("a.jpg"))
-//    val p2 = ImageIO.read(new File("b.jpg"))
-//    val p3 = ImageIO.read(new File("c.jpg"))
-//    val p4 = ImageIO.read(new File("d.jpg"))
-//    val p5 = ImageIO.read(new File("e.jpg"))
-//    val p6 = ImageIO.read(new File("f.jpg"))
-//    val p7 = ImageIO.read(new File("g.jpg"))
-//    val p8 = ImageIO.read(new File("h.jpg"))
-//    val p9 = ImageIO.read(new File("i.jpg"))
-//    val p10 = ImageIO.read(new File("j.jpg"))
-//
-//    println("Photo1: ")
-//    println(scan(p1))
-//    println("Photo2: ")
-//    println(scan(p2))
-//    println("Photo3: ")
-//    println(scan(p3))
-//    println("Photo4: ")
-//    println(scan(p4))
-//    println("Photo5: ")
-//    println(scan(p5))
-//    println("Photo6: ")
-//    println(scan(p6))
-//    println("Photo7: ")
-//    println(scan(p7))
-//    println("Photo8: ")
-//    println(scan(p8))
-//    println("Photo9: ")
-//    println(scan(p9))
-//    println("Photo10: ")
-//    println(scan(p10))
-//  }
-
 
 }
