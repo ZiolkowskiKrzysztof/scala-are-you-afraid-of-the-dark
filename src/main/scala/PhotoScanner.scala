@@ -58,17 +58,23 @@ class PhotoScanner {
     if (n <= cutOff) name + "_dark_" + n
     else name + "_bright_" + n
 
-  def withoutExtension(name: String):String = {
+  def withoutExtension(name: String): String = {
       name.substring(0, name.lastIndexOf("."))
+  }
+
+  def getExtension(name: String): String = {
+    name.substring(name.indexOf("."), name.length)
   }
 
   def write(imgName: String, cutOff: Int): Unit = {
     val photo1 = ImageIO.read(new File(imgName))
     val color = scan(photo1)
-    val name = setName(imgName, color, cutOff)
+    val baseName = withoutExtension(imgName)
+    val extension = getExtension(imgName)
+    val name = setName(baseName, color, cutOff)
     val photo2 = copy(photo1)
 
-    ImageIO.write(photo2, "jpg", new File(name + ".jpg"))
+    ImageIO.write(photo2, "jpg", new File(name + extension))
   }
 
   def test() {
