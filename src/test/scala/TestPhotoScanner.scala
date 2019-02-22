@@ -1,5 +1,3 @@
-import test.scala.PhotoScanner
-
 object TestPhotoScanner extends App {
 
   val test1: PhotoScanner = new PhotoScanner
@@ -16,13 +14,14 @@ object TestPhotoScanner extends App {
   println(testSetName)
   println(testSetName2)
 
-  val writeTest = test1.write("a.jpg", 45)
+  val pic1: Picture = new Picture("C:\\Users\\ziooo\\Desktop\\1.1\\photos\\bright\\a.jpg")
+  val writeTest = test1.write(pic1, 45)
 //  val writeTest2 = test1.write("Piter.png", 45)
 //  val writeTest3 = test1.write("a2.jpg", 45)
 
-//  val improveNameTest = test1.withoutExtension("a.jpg")
-//  println(improveNameTest)
+  val improveNameTest = test1.withoutExtension("a.jpg")
+  println(improveNameTest)
 
-//  println(test1.getExtension("a.jpg"))
+  println(test1.getExtension("a.jpg"))
 
 }

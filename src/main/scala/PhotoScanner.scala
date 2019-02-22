@@ -1,4 +1,4 @@
-package test.scala
+package scala
 
 import java.awt.image.BufferedImage
 import java.io.File
@@ -66,11 +66,11 @@ class PhotoScanner {
     name.substring(name.indexOf(".") + 1, name.length)
   }
 
-  def write(imgName: String, cutOff: Int): Unit = {
-    val photo1 = ImageIO.read(new File(imgName))
+  def write(imgName: Picture, cutOff: Int): Unit = {
+    val photo1 = ImageIO.read(new File(imgName.path))
     val color = scan(photo1)
-    val baseName = withoutExtension(imgName)
-    val extension = getExtension(imgName)
+    val baseName = withoutExtension(imgName.fileName)
+    val extension = getExtension(imgName.fileName)
     val name = setName(baseName, color, cutOff)
     val photo2 = copy(photo1)
 

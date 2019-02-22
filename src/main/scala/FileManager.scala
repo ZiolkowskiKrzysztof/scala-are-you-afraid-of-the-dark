@@ -1,4 +1,7 @@
+package scala
 import java.io.File
+
+import scala.collection.mutable.ListBuffer
 
 class FileManager {
 
@@ -15,5 +18,16 @@ class FileManager {
       List[File]()
     }
   }
+
+  def convert(listOfFiles: List[File])= {
+    var list = new ListBuffer[String]()
+    for (i <- 0 to (listOfFiles.length - 1))
+      list += listOfFiles(i).getAbsolutePath
+
+    val resultList = list.toList
+    resultList
+  }
+
+  def createPicture(directory: String) = new Picture(directory)
 
 }
