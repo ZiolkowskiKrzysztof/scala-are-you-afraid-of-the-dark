@@ -16,7 +16,7 @@ object TestPhotoScanner extends App {
   println(testSetName)
   println(testSetName2)
 
-//  val writeTest = test1.write("a.jpg", 45)
+  val writeTest = test1.write("a.jpg", 45)
 //  val writeTest2 = test1.write("Piter.png", 45)
 //  val writeTest3 = test1.write("a2.jpg", 45)
 

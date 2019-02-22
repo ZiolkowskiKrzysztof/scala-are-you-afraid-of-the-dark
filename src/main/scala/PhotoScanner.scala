@@ -63,7 +63,7 @@ class PhotoScanner {
   }
 
   def getExtension(name: String): String = {
-    name.substring(name.indexOf("."), name.length)
+    name.substring(name.indexOf(".") + 1, name.length)
   }
 
   def write(imgName: String, cutOff: Int): Unit = {
@@ -74,7 +74,7 @@ class PhotoScanner {
     val name = setName(baseName, color, cutOff)
     val photo2 = copy(photo1)
 
-    ImageIO.write(photo2, "jpg", new File(name + extension))
+    ImageIO.write(photo2, extension, new File(name + "." + extension))
   }
 
   def test() {
@@ -90,8 +90,6 @@ class PhotoScanner {
     val p9 = ImageIO.read(new File("i.jpg"))
     val p10 = ImageIO.read(new File("j.jpg"))
 
-    // save image to file "test.jpg"
-    //    ImageIO.write(photo2, "jpg", new File("test.jpg"))
     println("Photo1: ")
     println(scan(p1))
     println("Photo2: ")
@@ -112,7 +110,6 @@ class PhotoScanner {
     println(scan(p9))
     println("Photo10: ")
     println(scan(p10))
-    //    ImageIO.write(photo2, "png", new File("test.png"))
   }
 
 
