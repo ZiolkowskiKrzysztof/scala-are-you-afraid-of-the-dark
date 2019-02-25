@@ -3,10 +3,16 @@ import java.io.File
 
 import scala.collection.mutable.ListBuffer
 
+/** A class responsible for file operations. */
 class FileManager {
 
   val rightExtensions = List("jpg", "png")
 
+  /** This method gets data from given folder and give list of right extension files.
+    *
+    * @param dir A directory to be searched.
+    * @return A list of right extension files.
+    */
   def getListOfFiles(dir: String):List[File] = {
     val extensions = rightExtensions
     val d = new File(dir)
@@ -19,6 +25,11 @@ class FileManager {
     }
   }
 
+  /** This method converts List[File] into List[String].
+    *
+    * @param listOfFiles A list to be converted.
+    * @return List[String]
+    */
   def convert(listOfFiles: List[File])= {
     var list = new ListBuffer[String]()
     for (i <- 0 to (listOfFiles.length - 1))
@@ -28,6 +39,7 @@ class FileManager {
     resultList
   }
 
+  /** This method creates a new picture. */
   def createPicture(directory: String) = new Picture(directory)
 
 }

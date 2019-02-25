@@ -1,3 +1,4 @@
+/** A class responsible for solving the given problem of task. */
 class Problem(directory: String, n: Int) {
 
   val path = directory

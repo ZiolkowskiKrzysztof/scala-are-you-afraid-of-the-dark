@@ -12,7 +12,7 @@ class PhotoScanner {
     * @param img An image to be copied.
     * @return A copy of the original image.
     */
-  def copy(img: BufferedImage): BufferedImage = {
+  private def copy(img: BufferedImage): BufferedImage = {
     val width = img.getWidth
     val height = img.getHeight
 
@@ -32,7 +32,7 @@ class PhotoScanner {
     * @param rgb An integer value of the product of the RGB values.
     * @return The average color value in the range 0-256.
     */
-  def getColor(rgb: Int): Int = {
+  private def getColor(rgb: Int): Int = {
     val color = rgb
     val red = (color & 0xff0000) / 65536
     val green = (color & 0xff00) / 256
@@ -48,8 +48,11 @@ class PhotoScanner {
     * @param n A value in RGB scale.
     * @return A value in 0-100 scale.
     */
-  def convert(n: Int): Int = {
-    ((-15) * (n * n) / 11264) + ((515 * n) / 704)
+  private def convert(n: Int): Int = {
+    val func = ((-15) * (n * n) / 11264) + ((515 * n) / 704)
+
+    // Parabola above returns 0-black, 100-white, so result needs to be calculated one more time.
+    -func + 100
   }
 
   /** This method scans an image and calculate average RGB value of the picture.
@@ -57,7 +60,7 @@ class PhotoScanner {
     * @param img An image to be scanned.
     * @return The average color value in the range 0-256 of the whole picture.
     */
-  def scan(img: BufferedImage): Int = {
+  private def scan(img: BufferedImage): Int = {
 
     val width = img.getWidth
     val height = img.getHeight
@@ -80,8 +83,8 @@ class PhotoScanner {
     * @param cutOff A value of given cut-off.
     * @return
     */
-  def setName(name: String, n: Int, cutOff: Int): String =
-    if (n <= cutOff) name + "_dark_" + n
+  private def setName(name: String, n: Int, cutOff: Int): String =
+    if (n >= cutOff) name + "_dark_" + n
     else name + "_bright_" + n
 
   /** This method removes the extension from the name.
@@ -89,7 +92,7 @@ class PhotoScanner {
     * @param fileName A fullname of given file.
     * @return A name of file without extension.
     */
-  def withoutExtension(fileName: String): String = {
+  private def withoutExtension(fileName: String): String = {
       fileName.substring(0, fileName.lastIndexOf("."))
   }
 
@@ -98,7 +101,7 @@ class PhotoScanner {
     * @param fileName A fullname of given file.
     * @return An extension of the file.
     */
-  def getExtension(fileName: String): String = {
+  private def getExtension(fileName: String): String = {
     fileName.substring(fileName.indexOf(".") + 1, fileName.length)
   }
 

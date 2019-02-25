@@ -2,10 +2,14 @@
 
 Images are saving in the project folder.
 
+Repo before InteliJ crash: https://bitbucket.org/ziol3k/areyouafraid/src/master/
+
 
 ## How to run program
 
 In the console using sbt. 
+
+Recommended cut-off value: 55.
 
 
 ```
@@ -83,4 +87,5 @@ out/
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
 
