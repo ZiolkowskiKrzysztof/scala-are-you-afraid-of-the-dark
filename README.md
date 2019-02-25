@@ -7,7 +7,9 @@ Repo before InteliJ crash: https://bitbucket.org/ziol3k/areyouafraid/src/master/
 
 ## How to run program
 
-In the console using sbt. 
+In the console using sbt.
+ 
+First parameter: "your project path\\\photos"
 
 Recommended cut-off value: 55.
 
