@@ -9,7 +9,7 @@ Repo before InteliJ crash: https://bitbucket.org/ziol3k/areyouafraid/src/master/
 
 In the console using sbt.
  
-First parameter: "your project path\\\photos"
+First parameter: "your project path\\\photos". Please remember of using double slashes.
 
 Recommended cut-off value: 55.
 
